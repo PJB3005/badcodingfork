@@ -258,3 +258,6 @@
 	desc = "A glass lab container for storing interesting creatures."
 	start_showpiece_type = /obj/item/clothing/mask/facehugger/lamarr
 
+/obj/structure/displaycase/chiefengineer
+	alert = 1
+	start_showpiece_type = /obj/item/areaeditor/blueprints

@@ -58,6 +58,7 @@
 /datum/reagent/toxin/plasma/on_mob_life(mob/living/M)
 	if(holder.has_reagent("epinephrine"))
 		holder.remove_reagent("epinephrine", 2*REM)
+	M.apply_effect(0.5*REM/M.metabolism_efficiency,IRRADIATE,0)
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
 		C.adjustPlasma(20)
@@ -686,6 +687,8 @@
 
 /datum/reagent/toxin/acid/reaction_mob(mob/living/carbon/C, method=TOUCH, reac_volume)
 	if(!istype(C))
+		return
+	if(C.dna && C.dna.species.id == "xeno")
 		return
 	reac_volume = round(reac_volume,0.1)
 	if(method == INGEST)

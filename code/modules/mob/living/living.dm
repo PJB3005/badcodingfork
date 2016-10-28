@@ -640,10 +640,25 @@ Sorry Giacom. Please don't be mad :(
 	..()
 
 /mob/living/proc/getTrail()
-	if(getBruteLoss() < 300)
-		return pick("ltrails_1", "ltrails_2")
+	if(ishuman(src))
+		var/mob/living/carbon/human/H = src
+		var/species = H.dna.species.id
+		if(species == "xeno") //Here we can define custom blood trails for different species; copy+paste the xenos species to add new ones.
+			if(getBruteLoss() < 300)
+				return pick (list("xltrails_1", "xltrails2"))
+			else
+				return pick (list("xttrails_1", "xttrails2"))
+		else
+			if(getBruteLoss() < 300)
+				return pick("ltrails_1", "ltrails_2")
+			else
+				return pick("trails_1", "trails_2")
+
 	else
-		return pick("trails_1", "trails_2")
+		if(getBruteLoss() < 300)
+			return pick("ltrails_1", "ltrails_2")
+		else
+			return pick("trails_1", "trails_2")
 
 /mob/living/verb/resist()
 	set name = "Resist"
@@ -808,12 +823,14 @@ Sorry Giacom. Please don't be mad :(
 			adjust_fire_stacks(1)
 			IgniteMob()
 
-/atom/movable/proc/do_attack_animation(atom/A, end_pixel_y)
+/atom/movable/proc/do_attack_animation(atom/A, final_pixel_y, final_pixel_x)
 	var/pixel_x_diff = 0
 	var/pixel_y_diff = 0
-	var/final_pixel_y = initial(pixel_y)
-	if(end_pixel_y)
-		final_pixel_y = end_pixel_y
+	if(!final_pixel_y)
+		final_pixel_y = initial(pixel_y)
+
+	if(!final_pixel_x)
+		final_pixel_x = initial(pixel_x) //lol copypasta
 
 	var/direction = get_dir(src, A)
 	if(direction & NORTH)
@@ -827,8 +844,8 @@ Sorry Giacom. Please don't be mad :(
 		pixel_x_diff = -8
 
 	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff, time = 2)
-	animate(pixel_x = initial(pixel_x), pixel_y = final_pixel_y, time = 2)
-
+	//animate(pixel_x = initial(pixel_x), pixel_y = final_pixel_y, time = 2)
+	animate(pixel_x = pixel_x - pixel_x_diff, pixel_y = final_pixel_y, time = 2) //Why reset when you can just reverse? 99% less shit-breaking.
 
 /mob/living/do_attack_animation(atom/A)
 	var/final_pixel_y = get_standard_pixel_y_offset(lying)

@@ -184,13 +184,8 @@
 		/obj/item/weapon/ore,
 		/obj/item/weapon/reagent_containers/food/drinks,
 		/obj/item/organ/hivelord_core,
-<<<<<<< HEAD
-		/obj/item/device/wormhole_jaunter
-
-=======
 		/obj/item/device/wormhole_jaunter,
 		/obj/item/device/t_scanner/motionTracker
->>>>>>> refs/remotes/Citadel-Station-13/master
 		)
 
 

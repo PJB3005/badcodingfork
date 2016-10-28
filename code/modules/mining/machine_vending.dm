@@ -161,11 +161,7 @@
 	return ..()
 
 /obj/machinery/mineral/equipment_vendor/proc/RedeemVoucher(obj/item/weapon/mining_voucher/voucher, mob/redeemer)
-<<<<<<< HEAD
-	var/items = list("Survival Capsule and Explorer's Webbing", "Resonator and Advanced Scanner", "Mining Drone", "Medivac Kit", "Extraction Kit", "Crusher Kit")
-=======
 	var/items = list("Crusher Kit", "Extract and Rescue Kit", "Hunter Kit", "Mining Drone", "Resonator and Advanced Scanner", "Survival Capsule and Explorer's Webbing")//Alphabetical, please.
->>>>>>> refs/remotes/Citadel-Station-13/master
 
 	var/selection = input(redeemer, "Pick your equipment", "Mining Voucher Redemption") as null|anything in items
 	if(!selection || !Adjacent(redeemer) || qdeleted(voucher) || voucher.loc != redeemer)
@@ -179,13 +175,6 @@
 			new /obj/item/stack/sheet/metal/five(loc)
 			new /obj/item/weapon/extraction_pack(loc)
 			new /obj/item/fulton_core(loc)
-<<<<<<< HEAD
-		if("Crusher Kit")
-			new /obj/item/weapon/twohanded/required/mining_hammer(loc)
-			new /obj/item/weapon/storage/belt/mining/alt(loc)
-			new /obj/item/weapon/extinguisher/mini(loc)
-=======
-			new /obj/item/weapon/reagent_containers/hypospray/medipen/survival(loc)
 		if("Hunter Kit")
 			new /obj/item/weapon/storage/belt/mining(loc)
 			new /obj/item/device/t_scanner/motionTracker(loc)
@@ -199,7 +188,6 @@
 			new /obj/item/device/t_scanner/adv_mining_scanner(loc)
 		if("Survival Capsule and Explorer's Webbing")
 			new /obj/item/weapon/storage/belt/mining/vendor(loc)
->>>>>>> refs/remotes/Citadel-Station-13/master
 
 	feedback_add_details("mining_voucher_redeemed", selection)
 	qdel(voucher)
